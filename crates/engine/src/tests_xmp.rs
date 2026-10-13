@@ -844,8 +844,7 @@ fn external_edit_copy_as_psd_round_trips() {
     let (w, h) = (d.width as u32, d.height as u32);
     let px = vec![1000u16; (w * h * 3) as usize];
     let saved =
-        novalight_codecs::encode_psd(&novalight_codecs::EncodeImage::new(w, h, 3, novalight_codecs::Samples::U16(&px)), &Default::default())
-            .unwrap();
+        novalight_codecs::encode_psd(&novalight_codecs::EncodeImage::new(w, h, 3, novalight_codecs::Samples::U16(&px)), &Default::default()).unwrap();
     std::fs::write(&path, saved).unwrap();
     assert_eq!(s.execute("photo.reload", &json!({"ids": [new.0]})).unwrap()["reloaded"], json!([new.0]));
     assert_ne!(s.render_now(new, 16, 16).unwrap().image.data, before);

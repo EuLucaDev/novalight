@@ -15,10 +15,10 @@
 use std::collections::{HashMap, HashSet};
 use std::sync::mpsc::{Receiver, channel};
 
-use novalight_ui_egui::NovalightApp;
-use novalight_ui_egui::menubar::{MenuNode, menu_bar};
 use muda::accelerator::{Accelerator, Code, Modifiers};
 use muda::{CheckMenuItem, Menu, MenuEvent, MenuItem, PredefinedMenuItem, Submenu};
+use novalight_ui_egui::NovalightApp;
+use novalight_ui_egui::menubar::{MenuNode, menu_bar};
 use serde_json::Value;
 
 const QUIT: &str = "app.quit";

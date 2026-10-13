@@ -112,7 +112,8 @@ fn launcher(app: &str) -> Result<Launcher, String> {
         return Ok(if cfg!(target_os = "macos") { Launcher::MacApp(app.to_string()) } else { Launcher::Program(PathBuf::from(app)) });
     }
     find_novaphoto().ok_or_else(|| {
-        "Nova Photo isn't installed. Get it from workflowind.agcunae.com/apps/novaphoto, or give where it is in Settings ▸ External Editing.".to_string()
+        "Nova Photo isn't installed. Get it from workflowind.agcunae.com/apps/novaphoto, or give where it is in Settings ▸ External Editing."
+            .to_string()
     })
 }
 

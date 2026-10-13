@@ -575,8 +575,7 @@ pub fn poll_scan(app: &mut NovalightApp, ctx: &egui::Context) {
         .candidates
         .iter()
         .map(|c| {
-            c.duplicate.is_some()
-                && c.existing.is_some_and(|id| app.session.catalog.photo(novalight_catalog::PhotoId(id)).is_some_and(|p| p.deleted))
+            c.duplicate.is_some() && c.existing.is_some_and(|id| app.session.catalog.photo(novalight_catalog::PhotoId(id)).is_some_and(|p| p.deleted))
         })
         .collect();
     d.set_trashed(trashed);

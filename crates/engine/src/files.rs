@@ -630,8 +630,7 @@ fn stand_in_image(bytes: &[u8]) -> Option<std::borrow::Cow<'_, [u8]>> {
         return Some(std::borrow::Cow::Owned(jpeg));
     }
     let undecodable = novalight_raw::probe(bytes).is_some_and(|f| !f.is_supported());
-    (undecodable && novalight_codecs::sniff(bytes).is_some_and(|f| f == novalight_codecs::Format::Tiff))
-        .then_some(std::borrow::Cow::Borrowed(bytes))
+    (undecodable && novalight_codecs::sniff(bytes).is_some_and(|f| f == novalight_codecs::Format::Tiff)).then_some(std::borrow::Cow::Borrowed(bytes))
 }
 
 /// Shared colour interpretation for quick previews, unsupported RAW fallback and camera-look fitting.

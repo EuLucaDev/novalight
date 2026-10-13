@@ -281,10 +281,7 @@ pub fn font_definitions_with_chinese(craft: &'static [novalight_engine::CraftFon
     fonts.font_data.insert("Inter-SemiBold".into(), Arc::new(FontData::from_static(include_bytes!("../../../assets/fonts/Inter-SemiBold.ttf"))));
     // Craft-fonts faces in preference order for a family drawn in `style`.
     let fallback = |style: &str| {
-        novalight_engine::fonts::ui_fallback(craft, crate::i18n::language().script(), style)
-            .into_iter()
-            .map(craft_font_name)
-            .collect::<Vec<String>>()
+        novalight_engine::fonts::ui_fallback(craft, crate::i18n::language().script(), style).into_iter().map(craft_font_name).collect::<Vec<String>>()
     };
     let (mut regular, mut bold) = (fallback("Regular"), fallback("Bold"));
     for name in regular.iter().chain(bold.iter()) {

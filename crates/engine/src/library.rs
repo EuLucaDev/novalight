@@ -773,7 +773,7 @@ impl Session {
 fn unlocked_warning(lock: Option<&LibraryLock>) -> Option<String> {
     lock.filter(|l| !l.held()).map(|_| {
         "This library could not be locked (its catalog.lock file can't be locked where it is stored, e.g. on some network \
-         shares), so it is open without protection against a second program: use it in one NovaLight app or command at \
+         shares), so it is open without protection against a second program: use it in one Nova Light app or command at \
          a time, or changes made in one of them can be lost."
             .to_string()
     })

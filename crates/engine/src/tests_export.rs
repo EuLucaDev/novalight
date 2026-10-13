@@ -475,8 +475,7 @@ fn hdr_avif_export_hlg() {
 #[test]
 fn remove_location_holds_for_original_and_dng_exports() {
     let dir = temp_dir("export-noloc");
-    let gps =
-        novalight_meta::Metadata { gps: Some(novalight_meta::Gps { latitude: 48.85, longitude: 2.35, altitude: None }), ..Default::default() };
+    let gps = novalight_meta::Metadata { gps: Some(novalight_meta::Gps { latitude: 48.85, longitude: 2.35, altitude: None }), ..Default::default() };
     // a raw with no embedded GPS, located in the catalog
     let raw = dir.join("Raw.dng");
     std::fs::write(&raw, synthetic_dng_with(None, Default::default())).unwrap();
@@ -485,8 +484,7 @@ fn remove_location_holds_for_original_and_dng_exports() {
     let img = novalight_raster::Rgba8::from_fn(32, 24, |x, y| [(x * 8) as u8, (y * 10) as u8, 90, 255]);
     let exif = novalight_meta::write_exif(&gps);
     let meta = novalight_codecs::EncodeMeta { exif: Some(&exif), ..Default::default() };
-    std::fs::write(&jpg, novalight_codecs::encode_jpeg(&novalight_codecs::EncodeImage::rgba8(&img), 90, Default::default(), &meta).unwrap())
-        .unwrap();
+    std::fs::write(&jpg, novalight_codecs::encode_jpeg(&novalight_codecs::EncodeImage::rgba8(&img), 90, Default::default(), &meta).unwrap()).unwrap();
     let mut s = Session::new().with_fs();
     s.execute("library.import", &json!({"paths": [raw.to_string_lossy(), jpg.to_string_lossy()]})).unwrap();
     let id = |s: &Session, n: &str| s.catalog.photos().find(|p| p.file_name == n).unwrap().id;

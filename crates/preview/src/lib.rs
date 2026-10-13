@@ -22,8 +22,8 @@ use std::sync::{Arc, Mutex, RwLock};
 
 pub use disk::{DiskCache, decode_jpeg, encode_jpeg};
 pub use hash::{Hash128, Hasher128, hash_bytes};
-use novalight_raster::Rgba8;
 pub use lru::{Lru, next_tick};
+use novalight_raster::Rgba8;
 pub use pool::JobPool;
 
 /// Rendered-thumbnail cache: memory LRU over an optional disk cache.

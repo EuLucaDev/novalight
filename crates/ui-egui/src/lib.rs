@@ -1639,11 +1639,7 @@ impl Caches {
     }
     /// The people named on faces among the photos the filter lets through (its own `person` aside),
     /// with photo counts.
-    pub fn people(
-        &mut self,
-        cat: &novalight_catalog::Catalog,
-        filter: &novalight_catalog::Filter,
-    ) -> std::sync::Arc<Vec<novalight_catalog::Person>> {
+    pub fn people(&mut self, cat: &novalight_catalog::Catalog, filter: &novalight_catalog::Filter) -> std::sync::Arc<Vec<novalight_catalog::Person>> {
         let key = novalight_catalog::Filter { person: None, ..filter.clone() };
         match &self.people {
             Some((r, f, t)) if *r == cat.revision && *f == key => t.clone(),

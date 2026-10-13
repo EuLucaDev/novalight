@@ -385,8 +385,7 @@ mod tests {
     /// `NOVALIGHT_LOG` keeps working exactly as it did with the old stderr-only logger.
     #[test]
     fn novalight_log_keeps_its_meaning() {
-        let targets =
-            ["novalight", "novalight::control_server", "novalight_engine::segment", "novalight_gpu", "wgpu_core::device", "naga", "eframe"];
+        let targets = ["novalight", "novalight::control_server", "novalight_engine::segment", "novalight_gpu", "wgpu_core::device", "naga", "eframe"];
         let levels = [log::Level::Error, log::Level::Warn, log::Level::Info, log::Level::Debug, log::Level::Trace];
         for value in ["info", "debug", "warn", "error", "verbose", "INFO"] {
             let f = Filter::parse(&filter_spec(Some(value), None));

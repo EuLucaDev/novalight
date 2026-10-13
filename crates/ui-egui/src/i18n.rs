@@ -766,9 +766,8 @@ mod tests {
     fn problems_read_in_every_language() {
         use novalight_catalog::rules::Issue;
         let cat = novalight_catalog::Catalog::new();
-        let problems = |rules: serde_json::Value| {
-            serde_json::from_value::<novalight_catalog::RuleSet>(serde_json::json!({"rules": rules})).unwrap().check(&cat)
-        };
+        let problems =
+            |rules: serde_json::Value| serde_json::from_value::<novalight_catalog::RuleSet>(serde_json::json!({"rules": rules})).unwrap().check(&cat);
         let p = problems(serde_json::json!([{"field": "rating", "op": "gte", "value": 3}, {"field": "title", "op": "contains", "value": ""}]));
         assert_eq!(problem_text_in(Locale::En, &p[0]), "Title: needs something to look for (or use “is empty”)");
         assert_eq!(problem_text_in(Locale::De, &p[0]), "Titel: braucht einen Suchbegriff (oder „ist leer“)");
@@ -1024,10 +1023,8 @@ mod tests {
             };
             assert!(rules_label(&rules, &catalog).ends_with(" Nein"), "{}", rules_label(&rules, &catalog));
         }
-        let filter = novalight_catalog::Filter {
-            labels: vec![novalight_catalog::ColorLabel::Red, novalight_catalog::ColorLabel::Blue],
-            ..Default::default()
-        };
+        let filter =
+            novalight_catalog::Filter { labels: vec![novalight_catalog::ColorLabel::Red, novalight_catalog::ColorLabel::Blue], ..Default::default() };
         assert_eq!(filter_label(&filter, &app.session.catalog), "Farbmarkierung: Rot oder Blau");
         app.run("label.setNames", serde_json::json!({"names": {"red": "Color"}})).unwrap();
         assert_eq!(filter_label(&filter, &app.session.catalog), "Farbmarkierung: Color oder Blau");

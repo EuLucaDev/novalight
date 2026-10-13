@@ -294,12 +294,8 @@ fn streamed_snapshot_keeps_the_on_disk_format() {
     let (mut j, c, _) = open(&m);
     assert_eq!(c.to_snapshot(), full.to_snapshot());
     j.snapshot(&c).unwrap();
-    let legacy = format!(
-        "{{\"format\":\"novalight-catalog\",\"version\":{},\"seq\":{},\"catalog\":{}}}\n",
-        crate::journal::VERSION,
-        j.seq(),
-        c.to_snapshot()
-    );
+    let legacy =
+        format!("{{\"format\":\"novalight-catalog\",\"version\":{},\"seq\":{},\"catalog\":{}}}\n", crate::journal::VERSION, j.seq(), c.to_snapshot());
     assert_eq!(String::from_utf8(m.get(SNAPSHOT).unwrap()).unwrap(), legacy);
     assert_eq!(j.stats().last_snapshot.bytes, legacy.len() as u64);
 
@@ -363,11 +359,8 @@ fn a_damaged_process_value_loads_as_v1_with_the_edits() {
     let d = &loaded.photo(id).unwrap().develop;
     assert_eq!((d.process, d.light.exposure), (ProcessVersion::V1, 0.5));
     // and in a (CRC-valid) log record
-    let edit = DevelopSettings {
-        process: ProcessVersion(7),
-        light: novalight_develop::Light { exposure: 0.8, ..Default::default() },
-        ..Default::default()
-    };
+    let edit =
+        DevelopSettings { process: ProcessVersion(7), light: novalight_develop::Light { exposure: 0.8, ..Default::default() }, ..Default::default() };
     let op = Op::SetDevelop { id, settings: Arc::new(edit), label: "Edit".into(), edited: None };
     let body = serde_json::to_string(&op).unwrap().replace(r#""process":7"#, r#""process":"seven""#);
     assert!(body.contains("seven"));

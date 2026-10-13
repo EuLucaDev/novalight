@@ -354,15 +354,8 @@ fn a_whole_disk_or_a_folder_holding_disks_is_synchronized_only_on_request() {
     let mut s = library(&dir);
     // a library photo on another disk makes the scratch folder's root look like it holds disks
     let id = s.catalog.alloc_photo_id();
-    let p = novalight_catalog::Photo::new(
-        id,
-        novalight_catalog::Source::File { path: "/Volumes/nas/x.jpg".into() },
-        "x.jpg",
-        "JPEG",
-        6,
-        4,
-        "2026-01-01",
-    );
+    let p =
+        novalight_catalog::Photo::new(id, novalight_catalog::Source::File { path: "/Volumes/nas/x.jpg".into() }, "x.jpg", "JPEG", 6, 4, "2026-01-01");
     s.catalog.apply(novalight_catalog::Op::AddPhoto { photo: Box::new(p) }).unwrap();
     if std::path::Path::new("/Volumes").is_dir() {
         let e = s.execute("folder.scanChanges", &json!({"path": "/Volumes"})).unwrap_err().to_string();

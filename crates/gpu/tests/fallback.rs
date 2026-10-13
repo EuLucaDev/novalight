@@ -52,8 +52,8 @@ fn failed_gpu_renders_fall_back_with_a_reason() {
     let req = RenderRequest::fit(w, h);
     let cpu = render(&src, &info, &s, &req).image;
     let ok = |what: &str| {
-        let g = novalight_gpu::render(&src, &info, &s, &req, None)
-            .unwrap_or_else(|| panic!("{what}: gpu render ({:?})", novalight_gpu::last_fallback()));
+        let g =
+            novalight_gpu::render(&src, &info, &s, &req, None).unwrap_or_else(|| panic!("{what}: gpu render ({:?})", novalight_gpu::last_fallback()));
         let d = mean_abs_diff(&cpu, &g.image);
         assert!(d < 0.5, "{what}: GPU differs from the CPU by {d:.3} LSB");
     };

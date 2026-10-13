@@ -13,9 +13,9 @@ use std::sync::Arc;
 
 use crate::icc;
 use crate::space::Trc;
+use moxcms::{ColorProfile, DataColorSpace, Layout, RenderingIntent, Transform8BitExecutor, TransformOptions, Xyzd};
 use novalight_color::{D50, D65, Mat3, REC2020, bradford};
 use novalight_raster::Rgba8;
-use moxcms::{ColorProfile, DataColorSpace, Layout, RenderingIntent, Transform8BitExecutor, TransformOptions, Xyzd};
 
 /// Largest profile file accepted (monitor profiles are a few KB; LUT profiles up to a few MB).
 pub const MAX_PROFILE_BYTES: usize = 32 << 20;

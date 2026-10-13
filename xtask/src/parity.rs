@@ -269,10 +269,8 @@ pub fn with_summary(md: &str, table: &str) -> Option<String> {
 }
 
 fn registry(what: &str) -> Result<BTreeSet<String>, String> {
-    let out = crate::cargo()
-        .args(["run", "-q", "-p", "novalight-cli", "--", what, "--json"])
-        .output()
-        .map_err(|e| format!("novalight-cli {what}: {e}"))?;
+    let out =
+        crate::cargo().args(["run", "-q", "-p", "novalight-cli", "--", what, "--json"]).output().map_err(|e| format!("novalight-cli {what}: {e}"))?;
     if !out.status.success() {
         return Err(format!("novalight-cli {what} --json failed:\n{}", String::from_utf8_lossy(&out.stderr)));
     }

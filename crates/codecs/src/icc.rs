@@ -2,10 +2,10 @@
 //! and writing matrix/TRC profiles for export embedding.
 
 use crate::space::{NamedSpace, Trc, rgb_to_xyz_d50};
-use novalight_color::{D50, Mat3, RgbSpace, bradford};
 use moxcms::{
     ColorProfile, DataColorSpace, Layout, LocalizableString, Matrix3d, ProfileText, RenderingIntent, ToneReprCurve, TransformOptions, Xyzd,
 };
+use novalight_color::{D50, Mat3, RgbSpace, bradford};
 use serde::{Deserialize, Serialize};
 
 /// Colour model of the profile's device space.

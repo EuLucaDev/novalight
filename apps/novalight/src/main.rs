@@ -156,8 +156,8 @@ fn gpu_crash_check_at(marker: Option<std::path::PathBuf>, in_memory: bool) -> Op
 
 fn gpu_crash_notice(what: &str) -> String {
     format!(
-        "NovaLight closed unexpectedly while starting the GPU last time ({what}), so GPU rendering is now off and photos render on the CPU. \
-         To try the GPU again, turn on Settings ▸ Performance ▸ Use the GPU for rendering; to try another graphics backend, start NovaLight with \
+        "Nova Light closed unexpectedly while starting the GPU last time ({what}), so GPU rendering is now off and photos render on the CPU. \
+         To try the GPU again, turn on Settings ▸ Performance ▸ Use the GPU for rendering; to try another graphics backend, start Nova Light with \
          NOVALIGHT_GPU_BACKEND=dx12, vulkan or off (see docs/gpu-pipeline.md → Troubleshooting)."
     )
 }
@@ -343,7 +343,7 @@ impl PrefsWriter {
             Err(e) => {
                 if !self.failing {
                     log::warn!("{e}");
-                    app.notices.push(format!("{e}. NovaLight keeps trying."));
+                    app.notices.push(format!("{e}. Nova Light keeps trying."));
                 }
                 self.failing = true;
                 // don't retry every frame
@@ -658,7 +658,7 @@ novalight — photo library + raw developer
 USAGE: novalight [OPTIONS] [FILES/FOLDERS…]   (files and folders are imported)
 
 OPTIONS:
-  --library DIR    open (or create) this library (default: ~/Pictures/NovaLight Library; env NOVALIGHT_LIBRARY)
+  --library DIR    open (or create) this library (default: ~/Pictures/Nova Light Library; env NOVALIGHT_LIBRARY)
   --no-demo        don't seed a new library with the procedural demo photos
   --memory         throwaway in-memory session (alias --demo); nothing is saved
   --control PORT   serve the JSON-lines control channel on 127.0.0.1:PORT (env NOVALIGHT_CONTROL_PORT;
@@ -670,9 +670,9 @@ ENVIRONMENT:
   NOVALIGHT_GPU_BACKEND=dx12|vulkan|metal|auto|off   graphics backend (default: DX12 on Windows, Metal on macOS,
                    Vulkan on Linux; off = render on the CPU); else WGPU_BACKEND. NOVALIGHT_GPU=0: CPU rendering.
   NOVALIGHT_SAM3_DIR=DIR   the SAM 3 model for Object / Describe masks (default: <settings folder>/models/sam3;
-                   optional: NovaLight offers to download it when first needed)
+                   optional: Nova Light offers to download it when first needed)
   NOVALIGHT_SAM3_MIRRORS=URL,…   where to download the SAM 3 model from (base URLs, tried in order)
-  NOVALIGHT_LOG=info|debug   more log detail from NovaLight itself (default: info from NovaLight, warnings
+  NOVALIGHT_LOG=info|debug   more log detail from Nova Light itself (default: info from Nova Light, warnings
                    from other crates); else RUST_LOG=<env_logger directives>. Records go to stderr and to
                    <settings folder>/logs/novalight.log (previous runs: novalight.1.log, novalight.2.log)
 ";
@@ -771,7 +771,7 @@ fn main() -> eframe::Result {
         match log_dir().filter(|_| !in_memory) {
             Some(dir) => match logger.attach_dir(&dir) {
                 Ok(path) => {
-                    log::info!("NovaLight {}, log file {}", env!("CARGO_PKG_VERSION"), path.display());
+                    log::info!("Nova Light {}, log file {}", env!("CARGO_PKG_VERSION"), path.display());
                     log_file = Some(path);
                 }
                 // The file sink has given up by now, so this goes to standard error only.
@@ -811,7 +811,7 @@ fn main() -> eframe::Result {
     let options = eframe::NativeOptions {
         renderer,
         viewport: egui::ViewportBuilder::default()
-            .with_title("NovaLight")
+            .with_title("Nova Light")
             .with_inner_size([1600.0, 1000.0])
             .with_min_inner_size([900.0, 560.0])
             .with_drag_and_drop(true)
@@ -840,7 +840,7 @@ fn main() -> eframe::Result {
     }
     let started = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
         eframe::run_native(
-            "NovaLight",
+            "Nova Light",
             options,
             Box::new(move |cc| {
                 // the window's renderer is up (eframe calls this after creating it)
@@ -895,8 +895,7 @@ fn main() -> eframe::Result {
                 // native menu bar generated from the command registry (macOS; elsewhere the menus are
                 // drawn in the window's top bar). NOVALIGHT_NO_NATIVE_MENU=1 keeps the in-window menus.
                 #[cfg(target_os = "macos")]
-                let menu =
-                    (std::env::var_os("NOVALIGHT_NO_NATIVE_MENU").is_none()).then(|| native_menu::NativeMenu::install(&mut app, &cc.egui_ctx));
+                let menu = (std::env::var_os("NOVALIGHT_NO_NATIVE_MENU").is_none()).then(|| native_menu::NativeMenu::install(&mut app, &cc.egui_ctx));
                 Ok(Box::new(App(
                     app,
                     writer,
@@ -912,7 +911,7 @@ fn main() -> eframe::Result {
     if let Err(e) = &started {
         // the renderer never came up: start again, which tries the next one in the chain
         if window_gpu::relaunch_after_failure(&win_files) {
-            log::error!("NovaLight could not open its window with {}: {e}; trying the next renderer", window_renderer.name());
+            log::error!("Nova Light could not open its window with {}: {e}; trying the next renderer", window_renderer.name());
             return Ok(());
         }
         startup_failed(&e.to_string(), log_file.as_deref());
@@ -924,7 +923,7 @@ fn main() -> eframe::Result {
 /// message box naming the log file, instead of exiting without a trace — the release builds have
 /// no console on Windows, and an app started from Finder shows no standard error (issue #260).
 fn startup_failed(error: &str, log_file: Option<&std::path::Path>) {
-    log::error!("NovaLight could not open its window: {error}");
+    log::error!("Nova Light could not open its window: {error}");
     if std::env::var_os("NOVALIGHT_NO_PREFS").is_some() {
         return; // tests and scripts: no dialog to click away
     }

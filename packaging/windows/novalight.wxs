@@ -14,13 +14,13 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package
       Name="NovaLight"
-      Manufacturer="Learning Machines LLC"
+      Manufacturer="Nova Foods"
       Version="$(var.Version)"
-      UpgradeCode="229BB552-5EFD-479A-BA86-8CB6D926390C"
+      UpgradeCode="6E5C1D0B-C38E-5E10-B3DD-63471925F1CD"
       Scope="perMachine"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="NovaLight photo library and raw developer" Manufacturer="Learning Machines LLC" />
+    <SummaryInformation Description="NovaLight photo library and raw developer" Manufacturer="Nova Foods" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
@@ -185,7 +185,7 @@
 
   <Fragment>
     <ComponentGroup Id="NovalightFiles" Directory="INSTALLFOLDER">
-      <Component Id="NovalightApp" Guid="8A1D3A39-F7C1-47B1-97AE-40C80BF82F4A">
+      <Component Id="NovalightApp" Guid="18C50FA4-A96B-5968-ADCA-52BB657E0F81">
         <File Id="NovalightExe" Source="$(var.BinDir)\novalight.exe" KeyPath="yes">
           <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="NovaLight"
               Description="NovaLight photo library and raw developer" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
@@ -198,6 +198,9 @@
 
       <Component Id="NovalightCli">
         <File Id="NovalightCliExe" Source="$(var.BinDir)\novalight-cli.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="NovaFoodsLegalNotice">
+        <File Id="NovaFoodsLegalNoticeFile" Source="$(sys.SOURCEFILEDIR)..\..\NOTICE" KeyPath="yes" />
       </Component>
     </ComponentGroup>
   </Fragment>

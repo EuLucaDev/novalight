@@ -210,8 +210,8 @@ fn spawn_finalize(
     std::thread::Builder::new()
         .name("lc-lightroom-finalize".into())
         .spawn(move || {
-            let result = novalight_engine::guard::catch("Lightroom archive finalization", || finalization.finish())
-                .and_then(|r| r.map_err(|e| e.to_string()));
+            let result =
+                novalight_engine::guard::catch("Lightroom archive finalization", || finalization.finish()).and_then(|r| r.map_err(|e| e.to_string()));
             let _ = tx.send(Message::Finalized(result));
             ctx.request_repaint();
         })

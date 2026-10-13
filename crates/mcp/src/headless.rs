@@ -176,8 +176,7 @@ pub fn expand_paths(paths: &[String]) -> Vec<String> {
     for p in paths {
         let path = Path::new(p);
         if path.is_dir() {
-            let w =
-                novalight_engine::walk::files_in(path, None, novalight_engine::walk::Limits::default(), novalight_engine::import::is_supported);
+            let w = novalight_engine::walk::files_in(path, None, novalight_engine::walk::Limits::default(), novalight_engine::import::is_supported);
             out.extend(w.files.iter().map(|f| absolute(f)));
         } else {
             // Explicit files are kept even with unknown extensions (the probe decides).

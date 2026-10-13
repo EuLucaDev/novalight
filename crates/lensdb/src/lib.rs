@@ -22,9 +22,9 @@ mod xml;
 
 use std::path::Path;
 
+pub use model::{Distortion, Tca, Vignetting};
 use novalight_develop::{EmbeddedLens, EmbeddedVignette, EmbeddedWarp};
 use novalight_geom::Point;
-pub use model::{Distortion, Tca, Vignetting};
 
 /// Largest database file read (lensfun's biggest file is well under 1 MB).
 const MAX_FILE_BYTES: u64 = 16 << 20;

@@ -26,7 +26,7 @@ use novalight_mcp::{Backend, DEFAULT_ADDR, Headless, Remote, Server, expand_path
 use serde_json::{Value, json};
 
 const USAGE: &str = "\
-novalight-cli — headless NovaLight (photo library + raw developer)
+novalight-cli — headless Nova Light (photo library + raw developer)
 
 USAGE:
   novalight-cli run [OPTIONS] COMMAND [key=value | '{json}']… [COMMAND …]…

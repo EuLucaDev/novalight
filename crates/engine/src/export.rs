@@ -1634,12 +1634,7 @@ enum Work {
 
 /// Set up the export of photo `id` at 1-based position `seq` of a batch. (For a whole batch use
 /// [`prepare_batch`]: it looks at the library's originals once.)
-pub fn prepare_export(
-    session: &mut crate::Session,
-    id: novalight_catalog::PhotoId,
-    o: &ExportOptions,
-    seq: usize,
-) -> Result<PreparedExport, String> {
+pub fn prepare_export(session: &mut crate::Session, id: novalight_catalog::PhotoId, o: &ExportOptions, seq: usize) -> Result<PreparedExport, String> {
     let guard = std::sync::Arc::new(session.original_guard());
     prepare_guarded(session, id, o, seq, guard)
 }
@@ -2819,8 +2814,7 @@ mod tests {
             let src = novalight_raster::Rgb32f::filled(16, 16, [0.18; 3]);
             let base = novalight_pipeline::RenderRequest::fit(16, 16);
             move |space| {
-                novalight_pipeline::render(&src, &Default::default(), &Default::default(), &novalight_pipeline::RenderRequest { space, ..base })
-                    .image
+                novalight_pipeline::render(&src, &Default::default(), &Default::default(), &novalight_pipeline::RenderRequest { space, ..base }).image
             }
         };
         let reference =

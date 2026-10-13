@@ -14,8 +14,8 @@
 //! Sources: ICC.1:2022 (rendering intents, media white point, absolute colorimetric scaling);
 //! the transforms are moxcms's. Own design otherwise.
 
-use novalight_color::{D50, D65, REC2020, bradford};
 use moxcms::{ColorProfile, DataColorSpace, Layout, RenderingIntent, TransformOptions};
+use novalight_color::{D50, D65, REC2020, bradford};
 
 use crate::display::MAX_PROFILE_BYTES;
 

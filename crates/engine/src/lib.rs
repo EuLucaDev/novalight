@@ -68,10 +68,10 @@ pub mod walk;
 use std::sync::Arc;
 
 pub use cmd::{CommandInfo, CommandSpec, command_specs, find_command};
-pub use fonts::{NOVAFOODS_FONTS, CraftFont};
+pub use fonts::{CraftFont, NOVAFOODS_FONTS};
+pub use media::{RenderJob, SourceLevel};
 use novalight_catalog::{Catalog, Filter, Op, PhotoId, Sort};
 use novalight_develop::DevelopSettings;
-pub use media::{RenderJob, SourceLevel};
 use serde_json::Value;
 pub use view::{Browse, FilterChip, LibrarySource, Selection, SelectionState, filter_chips};
 pub use {novalight_catalog as catalog, novalight_develop as develop, novalight_gpu as gpu, novalight_pipeline as pipeline};
