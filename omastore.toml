@@ -1,0 +1,11 @@
+kind = "app"
+categories = ["Graphics", "Photography"]
+icon = "assets/app-icon/hicolor/256x256/apps/br.com.novafoods.novalight.png"
+
+[linux.x86_64]
+asset = "novalight-{version}-linux-x86_64.tar.gz"
+exec = "novalight-{version}-linux-x86_64/bin/novalight"
+
+[linux.aarch64]
+asset = "novalight-{version}-linux-aarch64.tar.gz"
+exec = "novalight-{version}-linux-aarch64/bin/novalight"

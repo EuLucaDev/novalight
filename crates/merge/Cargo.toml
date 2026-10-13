@@ -1,0 +1,21 @@
+[package]
+name = "novalight-merge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaLight Photo Merge: HDR merge (align, deghost) and panorama stitching (L3)"
+
+[lints]
+workspace = true
+
+[dependencies]
+novalight-geom = { workspace = true }
+novalight-color = { workspace = true }
+novalight-raster = { workspace = true }
+novalight-raw = { workspace = true }
+novalight-codecs = { workspace = true }
+novalight-meta = { workspace = true }
+novalight-scenes = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+rayon = { workspace = true }

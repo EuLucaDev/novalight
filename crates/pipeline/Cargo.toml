@@ -1,0 +1,25 @@
+[package]
+name = "novalight-pipeline"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaLight develop pipeline: scene-referred, float, resolution independent (CPU reference) (L2)"
+
+[lints]
+workspace = true
+
+[dependencies]
+novalight-geom = { workspace = true }
+novalight-color = { workspace = true }
+novalight-raster = { workspace = true }
+novalight-develop = { workspace = true }
+novalight-raw = { workspace = true }
+novalight-inpaint = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+novalight-scenes = { workspace = true }
+proptest = { workspace = true }
+image = { workspace = true }
+serde_json = { workspace = true }

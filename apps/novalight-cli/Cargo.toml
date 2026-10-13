@@ -1,0 +1,39 @@
+[package]
+name = "novalight-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+description = "NovaLight command-line tool: headless render, command listing and the MCP server"
+
+[[bin]]
+name = "novalight-cli"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+novalight-engine = { workspace = true }
+novalight-denoise = { workspace = true }
+novalight-sysmem = { workspace = true }
+novalight-mcp = { workspace = true }
+novalight-ui-egui = { workspace = true }
+novalight-codecs = { workspace = true }
+novalight-raster = { workspace = true }
+novalight-merge = { workspace = true }
+serde_json = { workspace = true }
+dhat = { workspace = true, optional = true }
+
+[features]
+default = ["denoise"]
+denoise = ["novalight-engine/denoise"]
+rawnind-model = ["denoise", "novalight-engine/rawnind-model"]
+# Heap profiling: `cargo run --release -p novalight-cli --features dhat-heap -- snapshot …` counts
+# every allocation (live/peak bytes in `library.memory` / `ui.inspect`) and writes dhat-heap.json
+# (open it in DHAT's viewer: allocation sites by bytes at the peak). Slows allocation-heavy work.
+dhat-heap = ["dep:dhat"]
+
+# Open HEIC/HEIF photos (the optional novalight-heif crate). Not default so distributors choose
+# it (HEVC patents); build with `--features heif` to include it.
+heif = ["novalight-codecs/heif"]

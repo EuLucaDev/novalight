@@ -1,0 +1,59 @@
+[package]
+name = "novalight-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaLight engine: session, command registry, history, render jobs, view-models (L4)"
+
+[lints]
+workspace = true
+
+[dependencies]
+novalight-geom = { workspace = true }
+novalight-color = { workspace = true }
+novalight-raster = { workspace = true }
+novalight-develop = { workspace = true }
+novalight-scenes = { workspace = true }
+novalight-pipeline = { workspace = true }
+novalight-gpu = { workspace = true }
+novalight-catalog = { workspace = true }
+web-time = { workspace = true }
+novalight-preview = { workspace = true }
+novalight-codecs = { workspace = true }
+novalight-raw = { workspace = true }
+novalight-denoise-core = { workspace = true }
+novalight-denoise = { workspace = true, optional = true }
+novalight-meta = { workspace = true }
+novalight-lensdb = { workspace = true }
+novalight-faces = { workspace = true }
+miniz_oxide = { workspace = true }
+novalight-merge = { workspace = true }
+novalight-geocode = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+ab_glyph = { workspace = true }
+# Apply the font’s vertical substitutions and origins to Japanese watermarks.
+harfrust = { version = "0.12", default-features = false, features = ["std"] }
+unicode-segmentation = "1.13"
+novalight-segment = { workspace = true, optional = true }
+
+# model downloads run natively only (the web build fetches no models)
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+novalight-fetch = { workspace = true }
+
+[features]
+# AI masks with SAM 3 (Object / Describe). Off for the web and CLI builds.
+sam = ["dep:novalight-segment"]
+denoise = ["dep:novalight-denoise", "novalight-denoise/runtime", "novalight-gpu/denoise"]
+rawnind-model = ["denoise", "novalight-denoise/rawnind-model", "novalight-denoise-core/rawnind-model"]
+
+[dev-dependencies]
+# HDR JPEG XL tests read the file's colour encoding
+jxl-oxide = { workspace = true }
+# Lossless synthetic HEIC files (the import test; decoded when the codecs' `heif` feature is on).
+novalight-heif = { workspace = true, features = ["testdata"] }
+libc = { workspace = true }
+novalight-tiff = { workspace = true }

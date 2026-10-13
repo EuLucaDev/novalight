@@ -1,0 +1,33 @@
+[package]
+name = "novalight-gpu"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaLight GPU develop pipeline: wgpu compute (WGSL) twin of the CPU pipeline, which stays the reference (L3)"
+
+[lints]
+workspace = true
+
+[dependencies]
+novalight-denoise = { workspace = true, optional = true }
+novalight-geom = { workspace = true }
+novalight-color = { workspace = true }
+novalight-raster = { workspace = true }
+novalight-develop = { workspace = true }
+novalight-pipeline = { workspace = true }
+log = { workspace = true }
+
+# Native only: Metal / Vulkan / DX12 through wgpu (pure Rust; the drivers are the system's).
+# The browser build keeps the CPU pipeline (WebGPU needs async device creation: see docs/gpu-pipeline.md).
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+wgpu = { workspace = true }
+pollster = { workspace = true }
+bytemuck = { workspace = true }
+
+[features]
+default = []
+denoise = ["dep:novalight-denoise", "novalight-denoise/runtime"]
+
+[dev-dependencies]
+novalight-scenes = { workspace = true }
+novalight-raw = { workspace = true }

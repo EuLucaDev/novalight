@@ -1,0 +1,38 @@
+[package]
+name = "novalight-ui-egui"
+version.workspace = true
+edition.workspace = true
+rust-version = "1.95"
+license.workspace = true
+description = "NovaLight egui frontend (Lightroom-style UI); swappable — nothing below depends on it (L5)"
+
+[lints]
+workspace = true
+
+[dependencies]
+nova-ui = { workspace = true }
+novalight-geom = { workspace = true }
+novalight-meta = { workspace = true }
+novalight-color = { workspace = true }
+novalight-raster = { workspace = true }
+novalight-develop = { workspace = true }
+novalight-pipeline = { workspace = true }
+novalight-catalog = { workspace = true }
+web-time = { workspace = true }
+novalight-engine = { workspace = true }
+novalight-preview = { workspace = true }
+egui = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+egui_kittest = { workspace = true, features = ["wgpu", "snapshot"] }
+novalight-denoise = { workspace = true, features = ["runtime"] }
+novalight-codecs = { workspace = true }
+novalight-faces = { workspace = true }
+novalight-merge = { workspace = true }
+
+[build-dependencies]
+serde_json = { workspace = true }
+toml = "1"

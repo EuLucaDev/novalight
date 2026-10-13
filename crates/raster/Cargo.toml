@@ -1,0 +1,23 @@
+[package]
+name = "novalight-raster"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaLight raster (L0)"
+
+[lints]
+workspace = true
+
+[dependencies]
+serde = { workspace = true }
+novalight-geom = { workspace = true }
+novalight-color = { workspace = true }
+rayon = { workspace = true, optional = true }
+
+[features]
+default = ["parallel"]
+parallel = ["dep:rayon"]
+
+[dev-dependencies]
+proptest = { workspace = true }
+libc = { workspace = true }

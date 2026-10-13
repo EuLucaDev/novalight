@@ -1,0 +1,18 @@
+[package]
+name = "novalight-scenes"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Procedurally generated photographic demo scenes (HDR, linear Rec.2020) for NovaLight demos and tests (L1)"
+
+[lints]
+workspace = true
+
+[dependencies]
+novalight-color = { workspace = true }
+novalight-raster = { workspace = true }
+serde = { workspace = true }
+rayon = { workspace = true }
+
+[dev-dependencies]
+image = { workspace = true }
