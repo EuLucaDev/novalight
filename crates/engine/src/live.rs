@@ -194,8 +194,13 @@ impl Session {
 
     fn live_copy_photo(&mut self, id: PhotoId) -> Result<PhotoId> {
         let out = self.execute("photo.virtualCopy", &json!({"ids": [id.0], "name": "Colaboração"}))?;
-        let id = out.get("ids").and_then(Value::as_array).and_then(|ids| ids.first()).and_then(Value::as_u64)
-            .map(PhotoId).ok_or_else(|| err("não foi possível criar a cópia compartilhada"))?;
+        let id = out
+            .get("ids")
+            .and_then(Value::as_array)
+            .and_then(|ids| ids.first())
+            .and_then(Value::as_u64)
+            .map(PhotoId)
+            .ok_or_else(|| err("não foi possível criar a cópia compartilhada"))?;
         self.selection.active = Some(id);
         self.selection.ids = vec![id];
         Ok(id)
