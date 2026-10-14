@@ -729,6 +729,8 @@ fn panic_log_path_with(env: impl Fn(&str) -> Option<std::ffi::OsString>, temp: s
 }
 
 fn main() -> eframe::Result {
+    #[cfg(not(target_arch = "wasm32"))]
+    novalight_ui_egui::live_ui::install_link_handler();
     // First, so every start-up record is kept for the log file (`logging`).
     let logger = logging::install();
     novalight_engine::guard::install_hook(panic_log_path_with(|name| std::env::var_os(name), std::env::temp_dir()));

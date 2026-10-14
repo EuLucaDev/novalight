@@ -157,10 +157,10 @@ impl Session {
             Ok(id) => id,
             Err(_) => self.live_receive_photo(&v)?,
         };
-        let (undo, redo) = (self.undo.len(), self.redo.clone());
         self.set_develop(id, develop, "Colaboração")?;
-        self.undo.truncate(undo);
-        self.redo = redo;
+        // Desfazer não pode apagar o ajuste do colega: o histórico local recomeça daqui.
+        self.undo.clear();
+        self.redo.clear();
         self.live.photo = Some(id);
         self.live.seen = self.develop_of(id);
         Ok(())
@@ -217,14 +217,14 @@ impl Session {
             None => params.clone(),
         };
         let local = self.selection.clone();
-        let (undo, redo) = (self.undo.len(), self.redo.clone());
         self.selection.active = Some(id);
         self.selection.ids = vec![id];
         self.live.applying = true;
         let r = self.execute(cmd, &params);
         self.live.applying = false;
-        self.undo.truncate(undo);
-        self.redo = redo;
+        // Desfazer não pode apagar o ajuste do colega: o histórico local recomeça daqui.
+        self.undo.clear();
+        self.redo.clear();
         self.selection = local;
         self.live.seen = self.develop_of(id);
         r.map(|_| ())
@@ -308,7 +308,8 @@ mod tests {
         a.execute("develop.adjust", &json!({"control": "light.exposure", "delta": 0.5})).unwrap();
         sync(&mut a, &mut b);
         assert_eq!(a.live_digest().unwrap(), b.live_digest().unwrap());
-        assert_eq!(b.undo.len(), b_undo);
+        assert!(b.undo.is_empty(), "o desfazer de B recomeça depois do ajuste de A");
+        let _ = b_undo;
 
         a.execute("edit.undo", &json!({})).unwrap();
         sync(&mut a, &mut b);

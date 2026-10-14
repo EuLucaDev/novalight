@@ -194,6 +194,13 @@ fn widget_rect(app: &NovalightApp, id: &str) -> Option<egui::Rect> {
 }
 
 pub fn handle(app: &mut NovalightApp, ctx: &egui::Context, req: &ControlRequest) -> Outcome {
+    #[cfg(not(target_arch = "wasm32"))]
+    if let Some(r) = crate::live_ui::control(app, req.method.as_str(), &req.params) {
+        return match r {
+            Ok(v) => ok(v),
+            Err(e) => err(e),
+        };
+    }
     let p = &req.params;
     let s = |k: &str| p.get(k).and_then(Value::as_str);
     let f = |k: &str| p.get(k).and_then(Value::as_f64);
