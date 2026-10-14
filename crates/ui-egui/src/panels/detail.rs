@@ -437,6 +437,17 @@ pub fn show(app: &mut NovalightApp, ui: &mut egui::Ui) {
         }
     }
     app.image_rect = Some(img_rect);
+    // Colaboração: o mouse vai em posição relativa na foto (0 a 1), com qualquer zoom.
+    #[cfg(not(target_arch = "wasm32"))]
+    if app.session.live_on_screen() {
+        let r = img_rect;
+        app.live.view = Some(crate::live_ui::LiveView::new(
+            main_area,
+            "foto",
+            move |p| (f64::from((p.x - r.min.x) / r.width().max(1.0)), f64::from((p.y - r.min.y) / r.height().max(1.0))),
+            move |x, y| pos2(r.min.x + r.width() * x as f32, r.min.y + r.height() * y as f32),
+        ));
+    }
     // request renders: the loupe at display resolution (drafts during drags)
     let interacting = app.session.interaction.is_some();
     let scale = if interacting { 0.6 } else { 1.0 };

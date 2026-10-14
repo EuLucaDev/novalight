@@ -85,6 +85,11 @@ impl Session {
         self.catalog.photo(id).map(|_| id).ok_or_else(|| err("a foto compartilhada saiu da biblioteca"))
     }
 
+    /// A foto compartilhada é a que está na tela? (Os mouses dos colegas só aparecem nela.)
+    pub fn live_on_screen(&self) -> bool {
+        self.live.photo.is_some() && self.live.photo == self.active()
+    }
+
     /// Compartilha a foto ativa.
     pub fn live_start(&mut self) -> Result<()> {
         let id = self.active().ok_or_else(|| err("abra uma foto para colaborar"))?;
