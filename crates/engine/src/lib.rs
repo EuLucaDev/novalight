@@ -47,6 +47,7 @@ pub mod lightroom_catalog;
 pub mod lightroom_folder;
 pub mod lightroom_job;
 mod lightroom_sqlite;
+pub mod live;
 pub mod logging;
 pub mod media;
 pub mod memory;
@@ -236,6 +237,8 @@ pub struct Session {
     /// Current time provider (ISO 8601); injectable for tests and wasm.
     pub clock: Box<dyn Fn() -> String + Send>,
     depth: u32,
+    /// Colaboração em tempo real (Nova Live), ver `live`.
+    pub live: live::LiveState,
     /// Selected mask (Masking panel), by mask id.
     pub active_mask: Option<u32>,
     /// AI masks (SAM 3): the model and the last photo prepared for it.
@@ -364,6 +367,7 @@ impl Session {
             media: media::MediaCache::default(),
             clock: Box::new(|| "2026-09-30T12:00:00".to_string()),
             depth: 0,
+            live: live::LiveState::default(),
             active_mask: None,
             segmenter: segment::Segmenter::default(),
             active_spot: None,
@@ -417,7 +421,14 @@ impl Session {
         }
         let empty = Value::Object(Default::default());
         let params = if params.is_null() { &empty } else { params };
-        self.run_command(id, spec.journal.then_some(params), |s| (spec.run)(s, params))
+        let live_ctx = (self.depth == 0).then(|| self.live_context()).flatten();
+        let r = self.run_command(id, spec.journal.then_some(params), |s| (spec.run)(s, params));
+        if let Some(ctx) = live_ctx
+            && r.is_ok()
+        {
+            self.live_record(id, params, spec.journal, ctx);
+        }
+        r
     }
 
     /// Run `f` as command `id` with what [`Session::execute`] does around every command: the

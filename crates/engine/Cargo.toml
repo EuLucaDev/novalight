@@ -9,6 +9,8 @@ description = "NovaLight engine: session, command registry, history, render jobs
 workspace = true
 
 [dependencies]
+# Colaboração: a foto compartilhada viaja em base64 dentro da mensagem.
+base64 = "0.22"
 novalight-geom = { workspace = true }
 novalight-color = { workspace = true }
 novalight-raster = { workspace = true }

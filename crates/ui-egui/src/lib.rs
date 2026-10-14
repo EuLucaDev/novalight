@@ -19,6 +19,8 @@ pub mod icons;
 pub mod import;
 pub mod lightroom_import;
 pub mod links;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod live_ui;
 pub mod menu_level;
 pub mod menubar;
 pub mod menus;
@@ -269,6 +271,8 @@ impl QuitPrompt {
 }
 
 pub struct NovalightApp {
+    #[cfg(not(target_arch = "wasm32"))]
+    pub live: live_ui::LiveUi,
     pub(crate) model_setup: model_setup::Pending,
     /// Per-catalog-revision caches of library-wide results the panels show every frame
     /// (expensive on big libraries).
@@ -411,6 +415,8 @@ impl NovalightApp {
         // AI mask requests run on the model's worker; frames apply their results (never wait)
         session.segmenter.background = true;
         Self {
+            #[cfg(not(target_arch = "wasm32"))]
+            live: live_ui::LiveUi::default(),
             session,
             ui: UiState::default(),
             services,
@@ -1291,6 +1297,12 @@ impl NovalightApp {
     pub fn ui(&mut self, ui: &mut egui::Ui) {
         i18n::set_language(self.ui.language);
         let ctx = ui.ctx().clone();
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            live_ui::pump(self, &ctx);
+            live_ui::bar(self, ui);
+            live_ui::window(self, &ctx);
+        }
         if !self.fonts_ready {
             ctx.request_repaint();
             return;
