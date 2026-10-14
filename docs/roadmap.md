@@ -111,3 +111,8 @@ calibration: M0–M13 took ≈ 25 active hours against an estimate of ≈ 110–
 | 2026-10-10 | minor | Beta hours 340–600; full ready ~59% in the gate note |
 | 2026-10-10 | minor | Added the Alpha gate table (core-workflow gate from the revised standard): passes, stays alpha |
 | 2026-10-10 | major | Created: milestones moved from ROADMAP.md (statuses refreshed: M3 ✅, M11 / M12 / M15 detail), current focus re-ranked toward beta, risks and design notes kept |
+
+
+## Integração Nova Foods em 14/10/2026
+
+Integra melhorias RAW, máscaras, catálogo e tratamento de erros no Nova Light. Personalizações Nova Foods preservadas por fusão em três vias. Testes e compilação não executados por solicitação do usuário; versão e implantação mantidas. Nenhuma nova avaliação de prontidão foi realizada nesta integração.

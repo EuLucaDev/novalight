@@ -173,3 +173,8 @@ Ranked toward beta; detail in [docs/roadmap.md](docs/roadmap.md), gaps in [docs/
 | 2026-10-08 | minor | *Where we stand* by dimension and by kind of user |
 | 2026-10-02 | major | Parity estimate and effort table |
 | 2026-09-30 | major | Created |
+
+
+## Integração Nova Foods em 14/10/2026
+
+Integra melhorias RAW, máscaras, catálogo e tratamento de erros no Nova Light. Personalizações Nova Foods preservadas por fusão em três vias. Testes e compilação não executados por solicitação do usuário; versão e implantação mantidas. Nenhuma nova avaliação de prontidão foi realizada nesta integração.
