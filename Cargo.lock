@@ -3636,7 +3636,7 @@ checksum = "0676bb32a98c1a483ce53e500a81ad9c3d5b3f7c920c28c24e9cb0980d0b5bc8"
 [[package]]
 name = "nova-account-ui"
 version = "0.1.0"
-source = "git+https://github.com/EuLucaDev/nova-live?rev=25720ad8a7aa8cc6e10ffd13091bd69873d9fd95#25720ad8a7aa8cc6e10ffd13091bd69873d9fd95"
+source = "git+https://github.com/EuLucaDev/nova-live?rev=d0c50673eb1b525c3efbfda72e33bdeb4569e1e7#d0c50673eb1b525c3efbfda72e33bdeb4569e1e7"
 dependencies = [
  "egui",
  "image",
@@ -3646,7 +3646,7 @@ dependencies = [
 [[package]]
 name = "nova-live"
 version = "0.1.0"
-source = "git+https://github.com/EuLucaDev/nova-live?rev=25720ad8a7aa8cc6e10ffd13091bd69873d9fd95#25720ad8a7aa8cc6e10ffd13091bd69873d9fd95"
+source = "git+https://github.com/EuLucaDev/nova-live?rev=d0c50673eb1b525c3efbfda72e33bdeb4569e1e7#d0c50673eb1b525c3efbfda72e33bdeb4569e1e7"
 dependencies = [
  "base64 0.22.1",
  "getrandom 0.4.3",
@@ -3663,7 +3663,7 @@ dependencies = [
 [[package]]
 name = "nova-live-macos"
 version = "0.1.0"
-source = "git+https://github.com/EuLucaDev/nova-live?rev=25720ad8a7aa8cc6e10ffd13091bd69873d9fd95#25720ad8a7aa8cc6e10ffd13091bd69873d9fd95"
+source = "git+https://github.com/EuLucaDev/nova-live?rev=d0c50673eb1b525c3efbfda72e33bdeb4569e1e7#d0c50673eb1b525c3efbfda72e33bdeb4569e1e7"
 dependencies = [
  "objc2 0.6.4",
  "objc2-foundation 0.3.2",
@@ -3672,7 +3672,7 @@ dependencies = [
 [[package]]
 name = "nova-themes"
 version = "0.1.0"
-source = "git+https://github.com/EuLucaDev/nova-live?rev=09fedc5f70f977109e5d76c4e89db37e0f54ee50#09fedc5f70f977109e5d76c4e89db37e0f54ee50"
+source = "git+https://github.com/EuLucaDev/nova-live?rev=d0c50673eb1b525c3efbfda72e33bdeb4569e1e7#d0c50673eb1b525c3efbfda72e33bdeb4569e1e7"
 dependencies = [
  "serde",
 ]
@@ -3687,7 +3687,7 @@ dependencies = [
 
 [[package]]
 name = "novalight"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "eframe",
  "egui",
@@ -3711,7 +3711,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-catalog"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "crc32fast",
  "log",
@@ -3728,7 +3728,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-cli"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "dhat",
  "novalight-codecs",
@@ -3744,7 +3744,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-codecs"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "avif-serialize",
  "bytemuck",
@@ -3773,7 +3773,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-color"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "novalight-geom",
  "proptest",
@@ -3782,7 +3782,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-denoise"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "faer-core",
  "miniz_oxide 0.8.9",
@@ -3799,7 +3799,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-denoise-core"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "miniz_oxide 0.8.9",
  "novalight-raster",
@@ -3814,7 +3814,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-develop"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "miniz_oxide 0.8.9",
  "novalight-color",
@@ -3826,7 +3826,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-engine"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "ab_glyph",
  "base64 0.22.1",
@@ -3867,7 +3867,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-faces"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "matrixmultiply",
  "ndarray",
@@ -3881,7 +3881,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-fetch"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "log",
  "rustls",
@@ -3892,7 +3892,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-geocode"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "miniz_oxide 0.8.9",
  "serde",
@@ -3900,7 +3900,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-geom"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "proptest",
  "serde",
@@ -3908,7 +3908,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-gpu"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "bytemuck",
  "log",
@@ -3926,7 +3926,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-heif"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "heic-rs",
  "rayon",
@@ -3934,14 +3934,14 @@ dependencies = [
 
 [[package]]
 name = "novalight-inpaint"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "rayon",
 ]
 
 [[package]]
 name = "novalight-lensdb"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "novalight-develop",
  "novalight-geom",
@@ -3950,7 +3950,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-mcp"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "log",
  "novalight-codecs",
@@ -3961,7 +3961,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-merge"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "novalight-codecs",
  "novalight-color",
@@ -3977,7 +3977,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-meta"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "novalight-geom",
  "novalight-tiff",
@@ -3989,7 +3989,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-pipeline"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "image",
  "novalight-color",
@@ -4007,7 +4007,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-preview"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "jpeg-encoder",
  "log",
@@ -4019,7 +4019,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-raster"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "libc",
  "novalight-color",
@@ -4031,7 +4031,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-raw"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "jpeg-encoder",
  "jxl-oxide",
@@ -4053,7 +4053,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-scenes"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "image",
  "novalight-color",
@@ -4064,7 +4064,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-segment"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "candle-core",
  "candle-nn",
@@ -4077,11 +4077,11 @@ dependencies = [
 
 [[package]]
 name = "novalight-sysmem"
-version = "0.11.1"
+version = "0.12.0"
 
 [[package]]
 name = "novalight-tiff"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "proptest",
  "serde",
@@ -4090,7 +4090,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-ui-egui"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "egui",
  "egui_kittest",
@@ -4120,7 +4120,7 @@ dependencies = [
 
 [[package]]
 name = "novalight-web"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "crc32fast",
  "eframe",
@@ -7463,7 +7463,7 @@ checksum = "e450f9b2ed1dff33c94c12589a87338689467b9c4f5d8a5710bd09a847d2c8a7"
 
 [[package]]
 name = "xtask"
-version = "0.11.1"
+version = "0.12.0"
 dependencies = [
  "brotli",
  "flate2",
