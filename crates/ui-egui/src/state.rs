@@ -199,6 +199,8 @@ pub enum DarkTheme {
     #[default]
     Charcoal,
     Midnight,
+    /// A dark Nova Foods suite theme.
+    Suite(nova_themes::ThemeKind),
 }
 
 /// The theme the light appearance uses.
@@ -208,24 +210,36 @@ pub enum LightTheme {
     #[default]
     Silver,
     Paper,
+    /// A light Nova Foods suite theme.
+    Suite(nova_themes::ThemeKind),
 }
 
 impl DarkTheme {
     pub const ALL: [DarkTheme; 2] = [DarkTheme::Charcoal, DarkTheme::Midnight];
+    /// The two above, then the dark suite themes.
+    pub fn all() -> Vec<DarkTheme> {
+        DarkTheme::ALL.into_iter().chain(nova_themes::ThemeKind::ALL.into_iter().filter(|k| k.is_dark()).map(DarkTheme::Suite)).collect()
+    }
     pub fn kind(self) -> crate::theme::ThemeKind {
         match self {
             DarkTheme::Charcoal => crate::theme::ThemeKind::Charcoal,
             DarkTheme::Midnight => crate::theme::ThemeKind::Midnight,
+            DarkTheme::Suite(kind) => crate::theme::ThemeKind::Suite(kind),
         }
     }
 }
 
 impl LightTheme {
     pub const ALL: [LightTheme; 2] = [LightTheme::Silver, LightTheme::Paper];
+    /// The two above, then the light suite themes.
+    pub fn all() -> Vec<LightTheme> {
+        LightTheme::ALL.into_iter().chain(nova_themes::ThemeKind::ALL.into_iter().filter(|k| !k.is_dark()).map(LightTheme::Suite)).collect()
+    }
     pub fn kind(self) -> crate::theme::ThemeKind {
         match self {
             LightTheme::Silver => crate::theme::ThemeKind::Silver,
             LightTheme::Paper => crate::theme::ThemeKind::Paper,
+            LightTheme::Suite(kind) => crate::theme::ThemeKind::Suite(kind),
         }
     }
 }
@@ -409,6 +423,8 @@ impl AppSettings {
             ThemeKind::Midnight => self.dark_theme = DarkTheme::Midnight,
             ThemeKind::Silver => self.light_theme = LightTheme::Silver,
             ThemeKind::Paper => self.light_theme = LightTheme::Paper,
+            ThemeKind::Suite(suite) if suite.is_dark() => self.dark_theme = DarkTheme::Suite(suite),
+            ThemeKind::Suite(suite) => self.light_theme = LightTheme::Suite(suite),
         }
         self.appearance_mode = if kind.is_dark() { AppearanceMode::Dark } else { AppearanceMode::Light };
     }

@@ -87,13 +87,23 @@ pub enum ThemeKind {
     Midnight,
     Silver,
     Paper,
+    /// One of the Nova Foods suite themes (Nova Photo's fourteen, from `nova-themes`).
+    Suite(nova_themes::ThemeKind),
 }
 
 impl ThemeKind {
     pub const ALL: [ThemeKind; 4] = [ThemeKind::Charcoal, ThemeKind::Midnight, ThemeKind::Silver, ThemeKind::Paper];
 
+    /// Nova Light's own four, then the suite themes.
+    pub fn all() -> Vec<ThemeKind> {
+        ThemeKind::ALL.into_iter().chain(nova_themes::ThemeKind::ALL.into_iter().map(ThemeKind::Suite)).collect()
+    }
+
     pub fn is_dark(self) -> bool {
-        matches!(self, ThemeKind::Charcoal | ThemeKind::Midnight)
+        match self {
+            ThemeKind::Suite(kind) => kind.is_dark(),
+            other => matches!(other, ThemeKind::Charcoal | ThemeKind::Midnight),
+        }
     }
 
     /// The theme's id (settings value and command suffix).
@@ -103,6 +113,7 @@ impl ThemeKind {
             ThemeKind::Midnight => "midnight",
             ThemeKind::Silver => "silver",
             ThemeKind::Paper => "paper",
+            ThemeKind::Suite(kind) => kind.id(),
         }
     }
 
@@ -113,6 +124,7 @@ impl ThemeKind {
             ThemeKind::Midnight => "Midnight",
             ThemeKind::Silver => "Silver",
             ThemeKind::Paper => "Paper",
+            ThemeKind::Suite(kind) => kind.label(),
         }
     }
 }
@@ -165,6 +177,7 @@ impl Tokens {
         let rgb = |v: u32| Color32::from_rgb((v >> 16) as u8, (v >> 8) as u8, v as u8);
         let base = Tokens::default();
         match kind {
+            ThemeKind::Suite(suite) => Tokens::for_suite(suite),
             ThemeKind::Charcoal => base,
             ThemeKind::Midnight => Tokens {
                 chrome: rgb(0x1e1e1e),
@@ -248,6 +261,40 @@ impl Tokens {
 
     pub fn get(ctx: &egui::Context) -> Tokens {
         ctx.data(|d| d.get_temp::<Tokens>(egui::Id::NULL)).unwrap_or_default()
+    }
+
+    /// A suite theme paints the chrome (bars, panels, grid cells, fields, sliders, text, accent);
+    /// stars, flags and mask overlays keep Nova Light's own colours.
+    pub fn for_suite(suite: nova_themes::ThemeKind) -> Tokens {
+        let p = suite.palette();
+        let base = Tokens::for_kind(if suite.is_dark() { ThemeKind::Charcoal } else { ThemeKind::Silver });
+        let c = |x: nova_themes::Rgba| Color32::from_rgba_unmultiplied(x[0], x[1], x[2], x[3]);
+        Tokens {
+            chrome: c(p.chrome),
+            canvas: c(p.canvas),
+            grid_bg: c(p.dock),
+            cell: c(p.card),
+            cell_selected: c(p.row_selected),
+            divider: c(p.separator),
+            inset: c(p.dock),
+            field: c(p.field),
+            field_border: c(p.field_border),
+            button: c(p.field),
+            button_border: c(p.field_border),
+            hover: c(p.hover),
+            pressed: c(p.pressed),
+            tool_active: c(p.pressed),
+            text: c(p.text),
+            text_label: c(p.text_dim),
+            text_dim: c(p.text_dim),
+            text_disabled: c(p.text_faint),
+            icon: c(p.icon),
+            track: c(p.field_border),
+            thumb: c(p.text_dim),
+            thumb_hover: c(p.text),
+            accent: c(p.accent),
+            ..base
+        }
     }
     pub fn font(&self, size: f32) -> FontId {
         FontId::proportional(size)

@@ -678,9 +678,9 @@ fn appearance(ui: &mut egui::Ui, t: &Tokens, s: &mut crate::state::AppSettings, 
     let available = ui.available_width();
     let mut cards = |ui: &mut egui::Ui, width: f32| {
         ui.spacing_mut().item_spacing.x = 12.0;
-        let light: Vec<_> = LightTheme::ALL.iter().map(|l| (*l, l.kind())).collect();
+        let light: Vec<_> = LightTheme::all().iter().map(|l| (*l, l.kind())).collect();
         theme_card(ui, t, "Light Theme", light_active, &light, &mut s.light_theme, &mut s.favorite_themes, width);
-        let dark: Vec<_> = DarkTheme::ALL.iter().map(|d| (*d, d.kind())).collect();
+        let dark: Vec<_> = DarkTheme::all().iter().map(|d| (*d, d.kind())).collect();
         theme_card(ui, t, "Dark Theme", !light_active, &dark, &mut s.dark_theme, &mut s.favorite_themes, width);
     };
     if available < 440.0 {

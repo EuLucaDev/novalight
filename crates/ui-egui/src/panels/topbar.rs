@@ -210,12 +210,14 @@ pub fn show(app: &mut NovalightApp, ui: &mut egui::Ui) {
                 }
                 let favorites = app.ui.settings.favorite_themes.clone();
                 for dark in [false, true] {
-                    let group: Vec<_> =
-                        crate::theme::ThemeKind::ALL.iter().filter(|k| k.is_dark() == dark && favorites.iter().any(|id| id == k.id())).collect();
+                    let group: Vec<_> = crate::theme::ThemeKind::all()
+                        .into_iter()
+                        .filter(|k| k.is_dark() == dark && favorites.iter().any(|id| id == k.id()))
+                        .collect();
                     if !group.is_empty() {
                         ui.separator();
                     }
-                    for kind in group {
+                    for kind in &group {
                         let r = ui.selectable_label(app.ui.settings.theme(app.system_theme(ui.ctx())) == *kind, crate::i18n::tr(kind.label()));
                         register(ui.ctx(), format!("menu:themeFavorite-{}", kind.id()), r.rect);
                         if r.clicked() {

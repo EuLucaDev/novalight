@@ -345,11 +345,11 @@ fn appearance_command(app: &mut NovalightApp, p: &Value) -> Result<Value, String
 
 /// `view.theme {theme}`: pick a theme; the mode becomes its family's (Dark or Light).
 fn theme_command(app: &mut NovalightApp, p: &Value) -> Result<Value, String> {
-    let ids = crate::theme::ThemeKind::ALL.map(|k| k.id()).join("|");
+    let ids = crate::theme::ThemeKind::all().iter().map(|k| k.id()).collect::<Vec<_>>().join("|");
     let Some(id) = p.get("theme").and_then(Value::as_str) else {
         return Err(format!("view.theme: `theme` is required ({ids})"));
     };
-    let Some(kind) = crate::theme::ThemeKind::ALL.into_iter().find(|k| k.id() == id) else {
+    let Some(kind) = crate::theme::ThemeKind::all().into_iter().find(|k| k.id() == id) else {
         return Err(format!("view.theme: unknown theme `{id}` ({ids})"));
     };
     app.ui.settings.select_theme(kind);
