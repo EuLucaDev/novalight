@@ -23,3 +23,7 @@ novalight-fetch = { workspace = true }
 [target.'cfg(target_os = "macos")'.dependencies]
 candle-core = { workspace = true, features = ["metal"] }
 candle-nn = { workspace = true, features = ["metal"] }
+
+[dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+novalight-testkit = { workspace = true }

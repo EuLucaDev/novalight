@@ -14,6 +14,7 @@ novalight-geom = { workspace = true }
 novalight-color = { workspace = true }
 novalight-raster = { workspace = true }
 novalight-develop = { workspace = true }
+novalight-faces = { workspace = true }
 novalight-pipeline = { workspace = true }
 log = { workspace = true }
 
@@ -29,5 +30,7 @@ default = []
 denoise = ["dep:novalight-denoise", "novalight-denoise/runtime"]
 
 [dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+novalight-testkit = { workspace = true }
 novalight-scenes = { workspace = true }
 novalight-raw = { workspace = true }

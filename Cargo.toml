@@ -12,6 +12,7 @@ repository = "https://github.com/EuLucaDev/novalight"
 
 [workspace.dependencies]
 nova-ui = { path = "vendor/novafoods-libs-5c874d51ee/crates/ui", features = ["serde"] }
+craft-docpath = { path = "vendor/novafoods-libs-82a24b006e/crates/docpath" }
 # internal
 novalight-denoise-core = { path = "crates/denoise-core" }
 novalight-denoise = { path = "crates/denoise", default-features = false }
@@ -40,6 +41,8 @@ novalight-fetch = { path = "crates/fetch" }
 novalight-heif = { path = "crates/heif" }
 novalight-segment = { path = "crates/segment" }
 novalight-geocode = { path = "crates/geocode" }
+novalight-slideshow = { path = "crates/slideshow" }
+novalight-testkit = { path = "crates/testkit" }
 
 # foundation
 thiserror = "2"
@@ -53,7 +56,7 @@ bytemuck = { version = "1", features = ["derive"] }
 crc32fast = "1"
 siphasher = "1"
 libc = "0.2" # dev-only: process CPU time in benches
-dhat = "0.3" # opt-in heap profiling (novalight-cli --features dhat-heap); never in default builds
+dhat = "0.3" # opt-in heap profiling (novalight-cli --features dhat-heap) and heap tests; never in product builds
 
 # formats
 quick-xml = "0.38"

@@ -206,6 +206,9 @@
       <Component Id="NovalightCli">
         <File Id="NovalightCliExe" Source="$(var.BinDir)\novalight-cli.exe" KeyPath="yes" />
       </Component>
+      <Component Id="NovalightFontLicences">
+        <File Id="NovalightFontLicencesFile" Source="$(var.BinDir)\FONT-LICENCES.txt" KeyPath="yes" />
+      </Component>
       <Component Id="NovaFoodsLegalNotice">
         <File Id="NovaFoodsLegalNoticeFile" Source="$(sys.SOURCEFILEDIR)..\..\NOTICE" KeyPath="yes" />
       </Component>

@@ -55,7 +55,8 @@ gzip size (5.25 MB). `wasm-opt -Oz`, when installed, shrinks it further.
 **Fonts.** The browser has no system fonts to fall back on, so CJK text comes from
 [novafoods-fonts](https://github.com/EuLucaDev/novafoods-fonts), the optional `NOVAFOODS_FONTS_DIR` build
 input (`NOVAFOODS_FONTS_DIR=../novafoods-fonts cargo xtask web`; release builds always set it). On wasm32
-`crates/engine/build.rs` embeds only BIZ UDPGothic Regular (UI and watermark fallback). The web
+`crates/engine/build.rs` embeds BIZ UDPGothic Regular (UI and watermark fallback) and Noto Sans
+Thai Regular (~214 KiB, for Thai file and folder names in every UI language). The web
 bundle also ships Noto Sans CJK SC Regular as `novalight_zh_hans.otf` and loads it before the UI
 starts. Keeping the 16 MB Chinese face separate leaves the module under Cloudflare's 25 MiB
 per-file limit (the older Japanese-only module measured 21.8 MB). Without `NOVAFOODS_FONTS_DIR`, the

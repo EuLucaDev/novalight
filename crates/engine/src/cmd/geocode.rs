@@ -115,7 +115,7 @@ fn fill(meta: &mut novalight_catalog::Meta, place: &novalight_geocode::Place, ov
 fn reverse(s: &mut Session, p: &Value) -> Result<Value> {
     const C: &str = "metadata.reverseGeocode";
     let overwrite = bool_or(p, "overwrite", false);
-    let ids = s.targets(p);
+    let ids = s.targets(p)?;
     let todo: Vec<(PhotoId, LatLon)> = ids
         .iter()
         .filter_map(|id| {

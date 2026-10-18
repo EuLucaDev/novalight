@@ -11,6 +11,8 @@ workspace = true
 [dependencies]
 # Colaboração: a foto compartilhada viaja em base64 dentro da mensagem.
 base64 = "0.22"
+# Paths stored in a Lightroom catalog are followed only to local files or the catalog's share.
+craft-docpath = { workspace = true }
 novalight-geom = { workspace = true }
 novalight-color = { workspace = true }
 novalight-raster = { workspace = true }
@@ -31,6 +33,7 @@ novalight-faces = { workspace = true }
 miniz_oxide = { workspace = true }
 novalight-merge = { workspace = true }
 novalight-geocode = { workspace = true }
+novalight-slideshow = { workspace = true }
 rayon = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
@@ -53,6 +56,8 @@ denoise = ["dep:novalight-denoise", "novalight-denoise/runtime", "novalight-gpu/
 rawnind-model = ["denoise", "novalight-denoise/rawnind-model", "novalight-denoise-core/rawnind-model"]
 
 [dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+novalight-testkit = { workspace = true }
 # HDR JPEG XL tests read the file's colour encoding
 jxl-oxide = { workspace = true }
 # Lossless synthetic HEIC files (the import test; decoded when the codecs' `heif` feature is on).

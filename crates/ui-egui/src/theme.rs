@@ -414,6 +414,10 @@ fn craft_font_name(f: &novalight_engine::CraftFont) -> String {
 /// Points one mouse-wheel notch (a line) scrolls.
 pub const WHEEL_LINE_POINTS: f32 = 100.0;
 
+/// Share of its visible size one mouse-wheel notch scrolls the photo grid and the filmstrip (Lightroom
+/// Classic: three notches move a photo from one edge to the other, at any window size).
+pub const WHEEL_STRIP_SHARE: f32 = 1.0 / 3.0;
+
 /// Zoom per wheel point (`exp(speed × points)`): egui's 1/200 at its stock 40-point notch, rescaled so
 /// one notch still zooms the same amount now that it scrolls [`WHEEL_LINE_POINTS`].
 pub const WHEEL_ZOOM_PER_POINT: f32 = 40.0 / 200.0 / WHEEL_LINE_POINTS;
@@ -506,14 +510,15 @@ mod tests {
         }
     }
 
-    /// #736: a Thai folder name drew boxes because only CJK novafoods-fonts faces were fallbacks. With a
-    /// novafoods-fonts build that carries a Thai face, an English UI offers it in every family.
+    /// #736: the release input must carry Thai, not silently skip the check with an older pin.
+    /// Exercise the Thai characters of the reported folder name through every egui family.
     #[test]
-    fn thai_face_is_a_fallback_in_every_ui_family_when_novafoods_fonts_carry_one() {
-        let Some(thai) = novalight_engine::NOVAFOODS_FONTS.iter().find(|f| f.covers("Thai")) else {
-            eprintln!("no Thai face in novafoods-fonts: nothing to check");
+    fn thai_folder_name_has_glyphs_in_every_ui_family() {
+        if novalight_engine::NOVAFOODS_FONTS.is_empty() {
+            novalight_testkit::skip!(Fonts, "built without NOVAFOODS_FONTS_DIR: no novafoods-fonts to check");
             return;
-        };
+        }
+        let thai = novalight_engine::NOVAFOODS_FONTS.iter().find(|f| f.covers("Thai")).expect("font input includes Thai");
         set_language(Locale::En);
         let definitions = font_definitions(novalight_engine::NOVAFOODS_FONTS);
         let name = craft_font_name(thai);
@@ -524,6 +529,20 @@ mod tests {
             let names = definitions.families.get(&family).expect("UI font family");
             assert!(names.contains(&name) || (family == semibold_family() && names.contains(&strong)), "{family:?} falls back on {name}");
         }
+        let ctx = egui::Context::default();
+        ctx.set_fonts(definitions);
+        let mut frame = ctx.run_ui(egui::RawInput::default(), |_| {});
+        frame.textures_delta.clear();
+        ctx.fonts_mut(|fonts| {
+            for family in [FontFamily::Proportional, FontFamily::Name(FONT_SEMIBOLD.into()), FontFamily::Monospace] {
+                let id = FontId::new(13.0, family);
+                // Check the Thai portion; egui 0.36's has_glyph reports false for characters
+                // in the replacement glyph's own face (including normal monospace Latin).
+                for ch in "Studio34 ถ่ายภาพงานแต่งงาน".chars().filter(|ch| !ch.is_ascii()) {
+                    assert!(fonts.has_glyph(&id, ch), "{id:?} has {ch}");
+                }
+            }
+        });
     }
 
     #[test]

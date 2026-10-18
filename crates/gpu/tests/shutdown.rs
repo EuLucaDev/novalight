@@ -21,7 +21,8 @@ fn nothing_renders_on_the_gpu_once_the_process_is_ending() {
     let req = RenderRequest::fit(w, h);
     let has_gpu = novalight_gpu::available();
     if !has_gpu {
-        eprintln!("no GPU adapter ({:?}): only the CPU side is checked", novalight_gpu::unavailable_reason());
+        let why = novalight_gpu::unavailable_reason().unwrap_or_default();
+        novalight_testkit::skip!(Gpu, "no GPU adapter ({why}), so only the CPU side is checked");
     }
     assert!(!novalight_gpu::shutting_down());
     assert!(novalight_gpu::wait_idle(Duration::ZERO), "nothing is in flight yet");

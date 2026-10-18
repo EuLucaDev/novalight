@@ -22,6 +22,7 @@ novalight-pipeline = { workspace = true }
 novalight-catalog = { workspace = true }
 web-time = { workspace = true }
 novalight-engine = { workspace = true }
+novalight-slideshow = { workspace = true }
 novalight-preview = { workspace = true }
 egui = { workspace = true }
 serde = { workspace = true }
@@ -29,6 +30,8 @@ serde_json = { workspace = true }
 log = { workspace = true }
 
 [dev-dependencies]
+# tests record why they skip (`cargo xtask ci` lists the skips)
+novalight-testkit = { workspace = true }
 egui_kittest = { workspace = true, features = ["wgpu", "snapshot"] }
 novalight-denoise = { workspace = true, features = ["runtime"] }
 novalight-codecs = { workspace = true }

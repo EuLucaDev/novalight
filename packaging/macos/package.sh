@@ -5,6 +5,7 @@
 #   $DIST/novalight-cli-<version>-macos-<arch>.zip      the headless CLI
 #
 # Usage: packaging/macos/package.sh [--arch universal|aarch64|x86_64] [--skip-build]
+# Fonts: use NOVAFOODS_FONTS_DIR or ../novafoods-fonts; download the pinned checkout if absent.
 #
 # Signing (env):
 #   MACOS_SIGN_IDENTITY   codesign identity (name or SHA-1). Default "-" = ad-hoc (local testing;
@@ -56,6 +57,9 @@ echo "==> NovaLight $VERSION for macOS ($ARCH), identity: $IDENTITY, notarize: $
 
 # ---- build -------------------------------------------------------------------------------------
 if [ "$SKIP_BUILD" = 0 ]; then
+  # shellcheck source=../fonts.sh
+  . "$ROOT/packaging/fonts.sh"
+  prepare_fonts
   args=()
   for t in "${TARGETS[@]}"; do args+=(--target "$t"); done
   (cd "$ROOT" && cargo build --release --locked -p novalight -p novalight-cli --features novalight/heif,novalight-cli/heif "${args[@]}")
